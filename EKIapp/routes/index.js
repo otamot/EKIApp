@@ -13,7 +13,7 @@ router.get("/",function(req,res,next){
 	var connection = mysql.createConnection({
 	host     : 'db01',
 	user     : 'root',
-	password : '*******',
+	password : '******',
 	database : "TrainLine"
 	});
 	
@@ -28,6 +28,7 @@ router.get("/",function(req,res,next){
 
 	connection.query('SELECT count(*) FROM Line_Table', function(error, rows, fields) {
 		console.log(rows);
+		console.log(fields);
 		res.render('index',{title:'success'});
 	});
 
