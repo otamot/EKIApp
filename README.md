@@ -18,6 +18,7 @@
 ## 05/22
 ### DB構成
 #### Station_Nameテーブル
+
 |Station_ID|Name|
 |:-|:-|
 |2500101|新宿|
@@ -69,6 +70,7 @@
 |2500147|小田原|
 
 #### Line_Table
+
 |Line_ID|dex|Station_ID|
 |:-|:-|:-|
 |25001|0|2500101|
@@ -120,20 +122,25 @@
 |25001|46|2500147|
 
 ### アプリ進捗状況
+
 * データベース上には小田急小田原線のデータが存在。
-
-
 * start:新百合ヶ丘,goal:座間として、途中駅をすべて表示する。
 
-SQL文
+#### SQL文
 ```SQL
-Select Name from Station_Name where Station_ID >= (Select min(Station_ID) From Station_Name where ( Name ="新百合ヶ丘" or  Name = "座間")) and Station_ID <= (Select max(Station_ID) From Station_Name where ( Name ="新百合ヶ丘" or  Name = "座間"))
+Select Name from Station_Name where Station_ID >=
+(Select min(Station_ID) From Station_Name where
+( Name ="新百合ヶ丘" or  Name = "座間")) and Station_ID <=
+(Select max(Station_ID) From Station_Name where
+( Name ="新百合ヶ丘" or  Name = "座間"))
 ```
-
+#### Webページ表示例
 ![ウェブページ](Image1.png)
 
 
-routes/index.html
+
+### コード
+#### routes/index.html
 ``` js
 var express = require('express');
 var router = express.Router();
@@ -172,7 +179,7 @@ module.exports = router;
 
 ```
 
-views/index.jade
+#### views/index.jade
 ``` jade
 extends layout
 
