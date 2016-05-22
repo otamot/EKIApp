@@ -25,11 +25,17 @@ router.get("/",function(req,res,next){
 				
 	console.log('connected as id ' + connection.threadId);
 	});
-
-	connection.query('SELECT count(*) FROM Line_Table', function(error, rows, fields) {
-		console.log(rows);
-		console.log(fields);
-		res.render('index',{title:'success'});
+	s = "新百合ヶ丘"
+	g = "座間"
+	ans = ""
+	connection.query('Select Name from Station_Name where Station_ID >= (Select min(Station_ID) From Station_Name where ( Name ="'+s+'" or  Name = "'+g+'")) and Station_ID <= (Select max(Station_ID) From Station_Name where ( Name ="'+s+'" or  Name = "'+g+'"))', function(error, rows, fields) {
+		console.log(rows[0]["Name"]);
+		for(var i = 0; i < rows.length;i++){
+			ans += rows[i]["Name"];
+		}
+//		console.log(fields);
+		console.log(ans);
+		res.render('index',{title:"駅検索apps.",elm:rows,start:s,goal:g});
 	});
 
 
